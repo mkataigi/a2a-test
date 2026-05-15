@@ -1,0 +1,11 @@
+# pnpm workspace configuration
+# 非workspace構成でもクールダウン設定のために使用
+packages: []
+
+allowBuilds:
+  esbuild: true
+
+# 7200分（5日）以内にリリースされたパッケージをインストール対象から除外
+# サプライチェーン攻撃で侵害されたパッケージが発見・削除されるまでの猶予期間を確保
+catalog:
+  minimumReleaseAge: "7200"
