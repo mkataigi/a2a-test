@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # lockfile 固定インストール（npm ci は package-lock.json を厳密に遵守）
+      - name: Install dependencies
+        run: npm ci
+
+      # テスト実行
+      - name: Run tests
+        run: npm test
