@@ -11,15 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
-      # lockfile 固定インストール（npm ci は package-lock.json を厳密に遵守）
+      # lockfile 固定インストール（pnpm install --frozen-lockfile は pnpm-lock.yaml を厳密に遵守）
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       # テスト実行
       - name: Run tests
-        run: npm test
+        run: pnpm test
