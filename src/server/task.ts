@@ -10,7 +10,8 @@ import {
   TaskSendParams,
   TaskStatus,
   Message,
-} from "../schema";
+  Part,
+} from "../schema.js";
 
 const taskApp = new Hono();
 
@@ -143,7 +144,7 @@ async function handleSendTask(c: Context, body: any) {
     },
     maxSteps: 5,
     // AI エージェントへのリクエストはリクエストパラメータに入っている
-    messages: params.message.parts.map((part) => ({
+    messages: params.message.parts.map((part: Part) => ({
       role: params.message.role === "user" ? "user" : "system",
       content: part.type === "text" ? part.text : "",
     })),
